@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Shravya's Twitter App</title>
+</head>
+    <body>
+    <script>
+    
+  		function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        
+        if (response.status === 'connected') {
+              
+               testAPI();
+         } else if (response.status === 'not_authorized') {
+              
+               document.getElementById('status').innerHTML = 'Please log ' +'into this app.';
+         } else {
+               
+               document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+         }
+  }
+  
+  function checkLoginState() {
+         FB.getLoginStatus(function(response) {
+               statusChangeCallback(response);
+         });
+  }
+  
+  
+  function testAPI() {
+		
+         window.location="tweets.jsp";
+  }
+  window.fbAsyncInit = function() {
+  FB.init({
+        appId : '389424051490492',
+        cookie : true, 
+        xfbml : true, 
+        version : 'v2.5' 
+  });
+  
+  FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+        });
+  };
+
+  (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+   </fb:login-button>
+   <meta http-equiv="refresh" content="0; url=https://apps.facebook.com/389424051490492/tweets.jsp" />
+   
+   </body>
+    </html>
